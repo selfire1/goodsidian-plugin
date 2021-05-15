@@ -53,9 +53,8 @@ export default class Goodsidian extends Plugin {
 						if (currentlyOpenFile instanceof TFile) {
 							// Get tags
 							var tags =this.app.metadataCache.getFileCache(currentlyOpenFile).frontmatter.tags
-							
 							// Print depending on if tag '#book' is in frontmatter
-							if (tags.indexOf('book') < -1) {
+							if (tags.includes('book')) {
 								console.log('Book tag in frontmatter.');
 							} else {
 								console.log('Book tag not in frontmatter.');
