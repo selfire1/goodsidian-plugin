@@ -1,4 +1,4 @@
-import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, parseFrontMatterEntry, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile, MarkdownPostProcessorContext, MarkdownView } from 'obsidian';
 
 interface GoodsidianSettings {
 	mySetting: string;
@@ -41,6 +41,26 @@ export default class Goodsidian extends Plugin {
 			}
 		});
 
+		// Fetch frontmatter by command pallete
+		this.addCommand({
+			id: 'fetch-frontmatter',
+			name: 'Fetch frontmatter',
+			checkCallback: (checking: boolean) => {
+				let leaf = this.app.workspace.activeLeaf;
+				if (leaf) {
+					if (!checking) {
+						const currentlyOpenFile: TFile = this.app.workspace.getActiveFile();
+						if (currentlyOpenFile instanceof TFile) {
+							console.log(this.app.metadataCache.getFileCache(currentlyOpenFile).frontmatter);
+						}
+					}
+					return true;
+				}
+				return false;
+			}
+		});
+
+
 
 		this.addSettingTab(new SampleSettingTab(this.app, this));
 
@@ -48,10 +68,7 @@ export default class Goodsidian extends Plugin {
 			console.log('codemirror', cm);
 		});
 
-		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-			console.log('click', evt);
-		});
-
+		
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
 	}
 
