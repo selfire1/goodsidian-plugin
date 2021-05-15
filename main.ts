@@ -52,21 +52,20 @@ export default class Goodsidian extends Plugin {
 						const currentlyOpenFile: TFile = this.app.workspace.getActiveFile();
 						if (currentlyOpenFile instanceof TFile) {
 							
-							// Get tags
+							// Set arrays and variables
 							let tags = getAllTags(this.app.metadataCache.getFileCache(currentlyOpenFile))
 							var patt = new RegExp("book");
 							var booktag = false;
 							
-							// Print depending on if tag '#book' is in frontmatter
+							// Set booktag variable to true or false depending if tags contain 'book'
 							for (var i = 0; i < tags.length; i++) {
-								
 								patt.test(tags[i]);
-
 								if (patt.test(tags[i])) {
 									var booktag = true
 								}
 							}
 
+							// Print depending on 'book' being present in note
 							if (booktag) {
 								console.log('Book tag present in note.');								
 							} else {
