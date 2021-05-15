@@ -56,7 +56,7 @@ export default class Goodsidian extends Plugin {
 	}
 
 	onunload() {
-		console.log('unloading plugin');
+		console.log('Goodsidian unloaded!');
 	}
 
 	async loadSettings() {
