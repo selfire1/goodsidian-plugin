@@ -1,4 +1,4 @@
-import { App, parseFrontMatterEntry, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile, MarkdownPostProcessorContext, MarkdownView } from 'obsidian';
+import { App, getAllTags, parseFrontMatterEntry, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile, MarkdownPostProcessorContext, MarkdownView, MetadataCache } from 'obsidian';
 
 interface GoodsidianSettings {
 	mySetting: string;
@@ -51,13 +51,26 @@ export default class Goodsidian extends Plugin {
 					if (!checking) {
 						const currentlyOpenFile: TFile = this.app.workspace.getActiveFile();
 						if (currentlyOpenFile instanceof TFile) {
+							
 							// Get tags
-							var tags =this.app.metadataCache.getFileCache(currentlyOpenFile).frontmatter.tags
+							let tags = getAllTags(this.app.metadataCache.getFileCache(currentlyOpenFile))
+							var patt = new RegExp("book");
+							var booktag = false;
+							
 							// Print depending on if tag '#book' is in frontmatter
-							if (tags.includes('book')) {
-								console.log('Book tag in frontmatter.');
+							for (var i = 0; i < tags.length; i++) {
+								
+								patt.test(tags[i]);
+
+								if (patt.test(tags[i])) {
+									var booktag = true
+								}
+							}
+
+							if (booktag) {
+								console.log('Book tag present in note.');								
 							} else {
-								console.log('Book tag not in frontmatter.');
+								console.log('Book tag not present.');
 							}
 							
 							// Print bookid
