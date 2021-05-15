@@ -1,15 +1,15 @@
 import { App, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-interface MyPluginSettings {
+interface GoodsidianSettings {
 	mySetting: string;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: GoodsidianSettings = {
 	mySetting: 'default'
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class Goodsidian extends Plugin {
+	settings: GoodsidianSettings;
 
 	async onload() {
 		console.log('loading my test plugin');
@@ -85,9 +85,9 @@ class SampleModal extends Modal {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: Goodsidian;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: Goodsidian) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
