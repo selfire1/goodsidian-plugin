@@ -16,18 +16,19 @@ export default class MyPlugin extends Plugin {
 
 		await this.loadSettings();
 
+
+		// Add icon in sidebar
 		this.addRibbonIcon('dice', 'Sample Plugin', () => {
 			new Notice('This is a notice!');
 		});
 
-		this.addStatusBarItem().setText('Status Bar Text');
+		// Write text in status bar
+		this.addStatusBarItem().setText('Goodsidian yeah!');
 
+		// Add a command in command palette (also hotkey-able)
 		this.addCommand({
 			id: 'open-sample-modal',
 			name: 'Open Sample Modal',
-			// callback: () => {
-			// 	console.log('Simple Callback');
-			// },
 			checkCallback: (checking: boolean) => {
 				let leaf = this.app.workspace.activeLeaf;
 				if (leaf) {
@@ -39,6 +40,7 @@ export default class MyPlugin extends Plugin {
 				return false;
 			}
 		});
+
 
 		this.addSettingTab(new SampleSettingTab(this.app, this));
 
@@ -97,6 +99,7 @@ class SampleSettingTab extends PluginSettingTab {
 
 		containerEl.createEl('h2', {text: 'Settings for my awesome plugin.'});
 
+		// Settings for plugin
 		new Setting(containerEl)
 			.setName('Setting #1')
 			.setDesc('It\'s a secret')
