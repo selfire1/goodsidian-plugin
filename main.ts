@@ -51,7 +51,18 @@ export default class Goodsidian extends Plugin {
 					if (!checking) {
 						const currentlyOpenFile: TFile = this.app.workspace.getActiveFile();
 						if (currentlyOpenFile instanceof TFile) {
-							console.log(this.app.metadataCache.getFileCache(currentlyOpenFile).frontmatter);
+							// Get tags
+							var tags =this.app.metadataCache.getFileCache(currentlyOpenFile).frontmatter.tags
+							
+							// Print depending on if tag '#book' is in frontmatter
+							if (tags.indexOf('book') < -1) {
+								console.log('Book tag in frontmatter.');
+							} else {
+								console.log('Book tag not in frontmatter.');
+							}
+							
+							// Print bookid
+							console.log(this.app.metadataCache.getFileCache(currentlyOpenFile).frontmatter.bookid);
 						}
 					}
 					return true;
