@@ -1,4 +1,6 @@
 import { App, getAllTags, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile } from 'obsidian';
+declare module 'xml2js';
+
 
 interface GoodsidianSettings {
 	settingsCurrentlyReadingURL: string;
@@ -95,7 +97,11 @@ export default class Goodsidian extends Plugin {
 						const currentlyOpenFile: TFile = this.app.workspace.getActiveFile();
 						if (currentlyOpenFile instanceof TFile) {
 							// Code to edit
-							console.log('Hello World!')
+							var parseString = require('xml2js').parseString;
+							var xml = "<root>Hello xml2js!</root>"
+							parseString(xml, function (err: any, result: any) {
+								console.dir(result);
+							});
 						}
 					}
 					return true;
