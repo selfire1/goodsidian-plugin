@@ -1,4 +1,4 @@
-import { App, getAllTags, parseFrontMatterEntry, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile, MarkdownPostProcessorContext, MarkdownView, MetadataCache } from 'obsidian';
+import { App, getAllTags, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile } from 'obsidian';
 
 interface GoodsidianSettings {
 	settingsCurrentlyReadingURL: string;
@@ -84,6 +84,25 @@ export default class Goodsidian extends Plugin {
 			}
 		});
 
+		// Fetch Goodreads URL
+		this.addCommand({
+			id: 'fetch-rss',
+			name: 'Fetch RSS',
+			checkCallback: (checking: boolean) => {
+				let leaf = this.app.workspace.activeLeaf;
+				if (leaf) {
+					if (!checking) {
+						const currentlyOpenFile: TFile = this.app.workspace.getActiveFile();
+						if (currentlyOpenFile instanceof TFile) {
+							// Code to edit
+							console.log('Hello World!')
+						}
+					}
+					return true;
+				}
+				return false;
+			}
+		});
 
 
 		this.addSettingTab(new SampleSettingTab(this.app, this));
@@ -151,7 +170,7 @@ class SampleModal extends Modal {
 				.onChange(async (value) => {
 					console.log(`Changed currently-reading url to: ${value}`);
 					this.plugin.settings.settingsCurrentlyReadingURL = value;
-					const CurrentlyReadingURL = value;
+					var CurrentlyReadingURL = value;
 					await this.plugin.saveSettings();
 				}));
 
@@ -164,10 +183,10 @@ class SampleModal extends Modal {
 				.onChange(async (value) => {
 					console.log(`Changed currently-reading url to: ${value}`);
 					this.plugin.settings.settingsReadURL = value;
-					const ReadURL = value;
+					var ReadURL = value;
 					await this.plugin.saveSettings();
 				}));
 	}
 
-	
+		
 }
