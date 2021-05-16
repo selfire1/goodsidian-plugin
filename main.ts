@@ -1,11 +1,13 @@
 import { App, getAllTags, parseFrontMatterEntry, Modal, Notice, Plugin, PluginSettingTab, Setting, TFile, MarkdownPostProcessorContext, MarkdownView, MetadataCache } from 'obsidian';
 
 interface GoodsidianSettings {
-	mySetting: string;
+	settingsCurrentlyReadingURL: string;
+	settingsReadURL: string;
 }
 
 const DEFAULT_SETTINGS: GoodsidianSettings = {
-	mySetting: 'default'
+	settingsCurrentlyReadingURL: 'default',
+	settingsReadURL: 'default'
 }
 
 export default class Goodsidian extends Plugin {
@@ -123,7 +125,7 @@ class SampleModal extends Modal {
 	}
 }
 
-class SampleSettingTab extends PluginSettingTab {
+	class SampleSettingTab extends PluginSettingTab {
 	plugin: Goodsidian;
 
 	constructor(app: App, plugin: Goodsidian) {
@@ -131,24 +133,39 @@ class SampleSettingTab extends PluginSettingTab {
 		this.plugin = plugin;
 	}
 
+	// Settings for plugin
 	display(): void {
 		let {containerEl} = this;
 
 		containerEl.empty();
 
-		containerEl.createEl('h2', {text: 'Settings for my awesome plugin.'});
+		containerEl.createEl('h3', { text: 'Goodsidian Settings' });
+		containerEl.createEl('p', { text: 'If you notice any issues, update to the latest version of Goodsidian and reload Obsidian.' });
 
-		// Settings for plugin
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
+			.setName('Currently-Reading URL')
+			.setDesc('You can find the RSS feed at the bottom of your Goodreads shelf.')
 			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue('')
+				.setPlaceholder('Currently-Reading RSS URL')
+				.setValue(this.plugin.settings.settingsCurrentlyReadingURL)
 				.onChange(async (value) => {
-					console.log('Secret: ' + value);
-					this.plugin.settings.mySetting = value;
+					console.log(`Changed currently-reading url to: ${value}`);
+					this.plugin.settings.settingsCurrentlyReadingURL = value;
+					await this.plugin.saveSettings();
+				}));
+
+		new Setting(containerEl)
+			.setName('Read URL')
+			.setDesc('You can find the RSS feed at the bottom of your Goodreads shelf.')
+			.addText(text => text
+				.setPlaceholder('Read RSS URL')
+				.setValue(this.plugin.settings.settingsReadURL)
+				.onChange(async (value) => {
+					console.log(`Changed currently-reading url to: ${value}`);
+					this.plugin.settings.settingsReadURL = value;
 					await this.plugin.saveSettings();
 				}));
 	}
+
+	
 }
