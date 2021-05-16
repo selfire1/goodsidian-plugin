@@ -8,7 +8,7 @@
     "build": "rollup --config rollup.config.js --environment BUILD:production"
   },
   "keywords": [],
-  "author": "",
+  "author": "Joschua",
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
@@ -21,5 +21,17 @@
     "tslib": "^2.2.0",
     "typescript": "^4.2.4",
     "xml2js": "^0.4.23"
-  }
+  },
+  "dependencies": {
+    "sax": "^1.2.4",
+    "xmlbuilder": "^11.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selfire1/goodsidian-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/selfire1/goodsidian-plugin/issues"
+  },
+  "homepage": "https://github.com/selfire1/goodsidian-plugin#readme"
 }
