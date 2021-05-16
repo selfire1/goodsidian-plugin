@@ -151,6 +151,7 @@ class SampleModal extends Modal {
 				.onChange(async (value) => {
 					console.log(`Changed currently-reading url to: ${value}`);
 					this.plugin.settings.settingsCurrentlyReadingURL = value;
+					const CurrentlyReadingURL = value;
 					await this.plugin.saveSettings();
 				}));
 
@@ -163,6 +164,7 @@ class SampleModal extends Modal {
 				.onChange(async (value) => {
 					console.log(`Changed currently-reading url to: ${value}`);
 					this.plugin.settings.settingsReadURL = value;
+					const ReadURL = value;
 					await this.plugin.saveSettings();
 				}));
 	}
