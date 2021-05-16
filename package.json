@@ -19,9 +19,7 @@
     "obsidian": "^0.12.0",
     "rollup": "^2.32.1",
     "tslib": "^2.2.0",
-    "typescript": "^4.2.4"
-  },
-  "dependencies": {
+    "typescript": "^4.2.4",
     "xml2js": "^0.4.23"
   }
 }
